@@ -8,8 +8,12 @@ import MapEmbed from "@/components/MapEmbed";
 import ArcDivider from "@/components/motifs/ArcDivider";
 import GlobeGrid from "@/components/motifs/GlobeGrid";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import ItemCard from "@/components/ItemCard";
+import { getItems } from "@/lib/items";
 import ar from "@/content/ar";
 import en from "@/content/en";
+
+const FEATURED_LIMIT = 6;
 
 export const dynamicParams = false;
 
@@ -27,6 +31,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   const typedLocale = locale as Locale;
   const content = getContent(typedLocale);
+  const items = await getItems();
+  const featuredItems = items.filter((item) => item.featured).slice(0, FEATURED_LIMIT);
 
   return (
     <>
@@ -70,6 +76,31 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           </div>
         </div>
       </section>
+
+      {featuredItems.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-h2 text-ink">{content.home.gallery.heading}</h2>
+              <p className="body-copy mt-2 max-w-lg text-steel">{content.home.gallery.intro}</p>
+            </div>
+            <Link
+              href={`/${typedLocale}/gallery`}
+              className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-date hover:text-steel"
+            >
+              {content.home.gallery.cta} &rarr;
+            </Link>
+          </div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredItems.map((item, i) => (
+              <RevealOnScroll key={item.id} delayMs={i * 60}>
+                <ItemCard item={item} locale={typedLocale} />
+              </RevealOnScroll>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="border-y border-haze/40 bg-steel/[0.05] py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">

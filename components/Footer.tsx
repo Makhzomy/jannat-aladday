@@ -70,6 +70,9 @@ export default function Footer({ locale, content }: { locale: Locale; content: S
             <Link href={`/${locale}/services`} className="hover:text-date">
               {content.nav.services}
             </Link>
+            <Link href={`/${locale}/gallery`} className="hover:text-date">
+              {content.nav.gallery}
+            </Link>
             <Link href={`/${locale}/contact`} className="hover:text-date">
               {content.nav.contact}
             </Link>

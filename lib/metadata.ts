@@ -3,7 +3,7 @@ import { locales, siteUrl, type Locale } from "./site";
 
 export function buildMetadata(
   locale: Locale,
-  path: "" | "/services" | "/contact",
+  path: "" | "/services" | "/gallery" | "/contact",
   meta: { title: string; description: string }
 ): Metadata {
   const languages: Record<string, string> = {};

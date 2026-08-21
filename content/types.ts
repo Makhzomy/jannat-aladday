@@ -31,11 +31,13 @@ export interface SiteContent {
     home: PageMeta;
     services: PageMeta;
     contact: PageMeta;
+    gallery: PageMeta;
   };
   nav: {
     home: string;
     services: string;
     contact: string;
+    gallery: string;
     switchTo: string;
   };
   company: {
@@ -69,6 +71,16 @@ export interface SiteContent {
       phonesLabel: string;
       mapCta: string;
     };
+    gallery: {
+      heading: string;
+      intro: string;
+      cta: string;
+    };
+  };
+  galleryPage: {
+    heading: string;
+    intro: string;
+    empty: string;
   };
   servicesPage: {
     heading: string;

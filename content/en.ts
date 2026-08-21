@@ -21,11 +21,17 @@ const en: SiteContent = {
       description:
         "Contact Jannat Al Adday General Trading in Basra by phone, WhatsApp, or email.",
     },
+    gallery: {
+      title: "Product Photos | Jannat Al Adday General Trading",
+      description:
+        "Photos of stationery and office supplies from Jannat Al Adday General Trading's stock in Basra.",
+    },
   },
   nav: {
     home: "Home",
     services: "What We Provide",
     contact: "Contact Us",
+    gallery: "Product Photos",
     switchTo: "العربية",
   },
   company: {
@@ -81,6 +87,16 @@ const en: SiteContent = {
       phonesLabel: "Phone Numbers",
       mapCta: "Open in Google Maps",
     },
+    gallery: {
+      heading: "From Our Stock",
+      intro: "A few examples of what's on our shelves.",
+      cta: "See all photos",
+    },
+  },
+  galleryPage: {
+    heading: "Product Photos",
+    intro: "A closer look at items from our stock. Contact us for current availability and pricing.",
+    empty: "Photos are coming soon.",
   },
   servicesPage: {
     heading: "What We Provide",

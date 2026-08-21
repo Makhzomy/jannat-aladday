@@ -1,13 +1,13 @@
 # Jannat Al Adday General Trading — Website
 
-A small, bilingual (Arabic / English) brochure site for a stationery wholesaler in Basra, Iraq. Next.js App Router, static export, no backend.
+A small, bilingual (Arabic / English) brochure site for a stationery wholesaler in Basra, Iraq, plus a password-protected admin dashboard for uploading product photos. Next.js App Router, deployed as a standard Vercel app (not a static export, since uploads need a backend).
 
 ## Stack
 
 - Next.js (App Router) + TypeScript + Tailwind CSS v4
-- `output: "export"` — builds to a fully static `out/` folder that can be hosted anywhere (Vercel, Nginx, S3, GitHub Pages, ...)
+- Vercel Blob for uploaded product photos and the item catalog (`data/items.json`, stored as a Blob file — no separate database)
 - Self-hosted IBM Plex Sans / IBM Plex Sans Arabic via `next/font/local` — no external font requests
-- No CMS, no database, no client-side JS framework beyond what Next.js itself ships
+- No CMS, no traditional database — a single admin dashboard behind a password, backed by Blob storage
 
 ## Running locally
 
@@ -18,13 +18,23 @@ npm run dev
 
 Open http://localhost:3000 — it redirects to `/ar` (the primary locale). Visit `/en` for English.
 
-## Building the static export
+The public pages (home, services, gallery, contact) work without any env vars — the item catalog just renders empty until Blob is configured. The `/admin` dashboard needs env vars; see below.
 
-```bash
-npm run build
-```
+## Admin dashboard
 
-This produces a static site in `out/`. Deploy that folder's contents to any static host. On Vercel, just connect the repo — the `output: "export"` config is picked up automatically.
+`/admin` — upload product photos with an English + Arabic name (description optional), mark a photo "featured" to show it on the homepage (first 6 featured items), or delete/unfeature existing ones. Everything else — the full catalog — shows on `/[locale]/gallery`.
+
+Copy `.env.local.example` to `.env.local` and fill in:
+
+- `ADMIN_PASSWORD` — the dashboard password
+- `ADMIN_SESSION_SECRET` — random string signing the login cookie (generate with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`)
+- `BLOB_READ_WRITE_TOKEN` — auto-injected by Vercel once a Blob store is linked to the project; for local dev, run `vercel link` then `vercel env pull .env.local` after the store exists
+
+Without `BLOB_READ_WRITE_TOKEN`, login/logout and the public pages still work, but uploads fail with a clear on-screen error rather than crashing.
+
+## Deploying
+
+This is a standard Next.js app on Vercel (import the repo, no special config needed). It is **not** a static export — the admin dashboard and photo catalog need Vercel's server runtime plus a Blob store, so it can't be hosted as plain static files anymore.
 
 ## Where to edit copy
 

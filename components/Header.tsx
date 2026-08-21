@@ -20,6 +20,7 @@ export default function Header({ locale, content }: { locale: Locale; content: S
   const links = [
     { href: `/${locale}`, label: content.nav.home },
     { href: `/${locale}/services`, label: content.nav.services },
+    { href: `/${locale}/gallery`, label: content.nav.gallery },
     { href: `/${locale}/contact`, label: content.nav.contact },
   ];
 
